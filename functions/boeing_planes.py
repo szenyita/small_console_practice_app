@@ -1,2 +1,8 @@
+from db.config import cursor
+
 def boeing_planes():
-    pass
+    query = "SELECT * FROM Plane"
+    result = cursor.execute(query)
+
+    for row in result:
+        print(row)
