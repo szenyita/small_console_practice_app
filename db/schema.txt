@@ -1,0 +1,28 @@
+cursor.execute("SELECT name FROM sqlite_master WHERE type='table'")
+
+cursor.execute("SELECT sql FROM sqlite_schema WHERE name = 'Plane'")
+CREATE TABLE Plane (
+    plane_id TEXT PRIMARY KEY,
+    name TEXT,
+    plane_make TEXT,
+    date_of_creation TEXT
+)
+
+cursor.execute("SELECT sql FROM sqlite_schema WHERE name = 'Airport'")
+CREATE TABLE Airport (
+    airport_id TEXT PRIMARY KEY,
+    location TEXT,
+    name TEXT,
+    country_code TEXT,
+    'coordinates'
+)
+
+cursor.execute("SELECT sql FROM sqlite_schema WHERE name = 'Schedule'")
+CREATE TABLE Schedule (
+    plane_id TEXT,
+    aiport_id TEXT,
+    time_of_departure TEXT,
+    time_of_arrival TEXT,
+    FOREIGN KEY(plane_id) REFERENCES Plane(plane_id),
+    FOREIGN KEY(aiport_id) REFERENCES Airport(airport_id)
+)
