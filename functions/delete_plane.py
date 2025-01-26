@@ -1,11 +1,12 @@
 from db.config import cursor
+from utils.formatted_print import formatted_print
 
 def delete_plane():
     search = input("Enter the filter you would like to apply or skip with Enter: ")
 
     search = f"%{search}%"
     try:
-        result = cursor.execute(
+        cursor.execute(
             """
             SELECT * FROM Plane
             WHERE
@@ -15,8 +16,9 @@ def delete_plane():
             date_of_creation LIKE ?
             """, (search, search, search, search)
         )
-        for row in result:
-            print(row)
+        descriptions = [x[0] for x in cursor.description]
+        result = cursor.fetchall()
+        formatted_print(descriptions, result)
 
     except Exception as e:
         print("Query failed")

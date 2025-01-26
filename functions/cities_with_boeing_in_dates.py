@@ -1,4 +1,5 @@
 from db.config import cursor
+from utils.formatted_print import formatted_print
 from utils.is_date import is_date
 
 def cities_with_boeing_in_dates():
@@ -11,7 +12,7 @@ def cities_with_boeing_in_dates():
         time_of_departure = input("Format is not in YYYY-MM-DD. Enter again: ")
 
     try:
-        result = cursor.execute(
+        cursor.execute(
             """
             SELECT a.name FROM Airport a
             JOIN Schedule s ON a.airport_id = s.aiport_id
@@ -22,9 +23,9 @@ def cities_with_boeing_in_dates():
             GROUP BY a.name
             """, (time_of_departure, time_of_arrival)
         )
-        print("\nAirports:")
-        for row in result:
-            print(row[0])
+        descriptions = [x[0] for x in cursor.description]
+        result = cursor.fetchall()
+        formatted_print(descriptions, result)
 
     except Exception as e:
         print("Query failed")
