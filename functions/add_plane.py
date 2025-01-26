@@ -1,6 +1,7 @@
 from db.config import cursor, connection
 from utils.is_date import is_date
 
+
 def add_plane():
     cursor.execute("SELECT plane_id FROM Plane")
     plane_ids = {x[0] for x in cursor.fetchall()}
@@ -8,6 +9,7 @@ def add_plane():
     print("Enter the following attributes:")
 
     plane_id = ""
+
     while len(plane_id) != 4 or plane_id in plane_ids:
         plane_id = input("Id (4 characters and unique): ")
         if len(plane_id) != 4:
@@ -19,12 +21,14 @@ def add_plane():
     plane_make = input("Make: ")
 
     date_of_creation = input("Date of creation (YYYY-MM-DD): ")
+
     while not is_date(date_of_creation):
         date_of_creation = input("Format is not in YYYY-MM-DD. Enter again: ")
 
     try:
         cursor.execute("INSERT INTO Plane VALUES (?, ?, ?, ?)", (plane_id, name, plane_make, date_of_creation))
         print("Plane added successfully")
+
     except Exception as e:
         print("Query failed")
         print(f"Exception {e}")

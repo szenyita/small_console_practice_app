@@ -8,6 +8,7 @@ def boeing_planes():
         descriptions = [x[0] for x in cursor.description]
         result = cursor.fetchall()
         formatted_print(descriptions, result)
+
     except Exception as e:
         print("Query failed")
         print(f"Exception {e}")

@@ -1,10 +1,11 @@
 from db.config import cursor
 from utils.formatted_print import formatted_print
 
+
 def delete_plane():
     search = input("Enter the filter you would like to apply or skip with Enter: ")
-
     search = f"%{search}%"
+
     try:
         cursor.execute(
             """
@@ -44,6 +45,7 @@ def delete_plane():
     try:
         cursor.execute("DELETE FROM Plane WHERE plane_id = ?", (plane_id,))
         print("Plane deleted successfully")
+
     except Exception as e:
         print("Query failed")
         print(f"Exception {e}")

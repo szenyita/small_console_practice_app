@@ -1,17 +1,19 @@
-from utils.max_element_length import max_element_length
+from utils.max_res_element_len import max_res_element_len
+
 
 def formatted_print(descriptions, result):
-    if len(descriptions) == 0 and len(result) == 0:
+    if len(result) == 0:
         print("No such record")
-        return
+        return False
 
-    descriptions_length = max_element_length(descriptions)
-    result_length = max_element_length(result)
+    descriptions_length = max(len(str(element)) for element in descriptions)
+    result_length = max_res_element_len(result)
 
     length = max(descriptions_length, result_length)
     horizontal_border = "+" + "-" * (length * len(descriptions) + len(descriptions) * 2 + len(descriptions) - 1) + "+"
 
     print(horizontal_border)
+
     for description in descriptions:
         print(f"| {description:{length}} ", end="")
     print("| ")

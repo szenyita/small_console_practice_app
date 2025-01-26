@@ -7,6 +7,7 @@ from functions.change_boeing_plane_name import change_plane_name
 from functions.cities_with_boeing_in_dates import cities_with_boeing_in_dates
 from functions.delete_plane import delete_plane
 
+
 print(welcome)
 while True:
     choice = input(prompt)

@@ -2,12 +2,15 @@ from db.config import cursor
 from utils.formatted_print import formatted_print
 from utils.is_date import is_date
 
+
 def cities_with_boeing_in_dates():
     time_of_arrival = input("Time of arrival (YYYY-MM-DD): ")
+
     while not is_date(time_of_arrival):
         time_of_arrival = input("Format is not in YYYY-MM-DD. Enter again: ")
 
     time_of_departure = input("Time of departure (YYYY-MM-DD): ")
+
     while not is_date(time_of_departure):
         time_of_departure = input("Format is not in YYYY-MM-DD. Enter again: ")
 
@@ -23,6 +26,7 @@ def cities_with_boeing_in_dates():
             GROUP BY a.name
             """, (time_of_departure, time_of_arrival)
         )
+
         descriptions = [x[0] for x in cursor.description]
         result = cursor.fetchall()
         formatted_print(descriptions, result)
