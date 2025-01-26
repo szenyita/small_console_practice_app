@@ -1,14 +1,15 @@
 from db.config import connection
-from utils.messages import welcome, prompt
+from utils.messages import welcome, prompt, goodbye
 from functions.add_plane import add_plane
 from functions.airports_in_city import airports_in_city
 from functions.boeing_planes import boeing_planes
 from functions.change_boeing_plane_name import change_plane_name
 from functions.cities_with_boeing_in_dates import cities_with_boeing_in_dates
 from functions.delete_plane import delete_plane
-
+from utils.to_csv_decorator import to_csv_decorator
 
 print(welcome)
+
 while True:
     choice = input(prompt)
 
@@ -27,6 +28,7 @@ while True:
             cities_with_boeing_in_dates()
         case "7":
             connection.close()
+            print(goodbye)
             break
         case _:
             print("Invalid option")

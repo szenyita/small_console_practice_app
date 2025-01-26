@@ -1,8 +1,10 @@
 from db.config import cursor
 from utils.formatted_print import formatted_print
 from utils.is_date import is_date
+from utils.to_csv_decorator import to_csv_decorator
 
 
+@to_csv_decorator
 def cities_with_boeing_in_dates():
     time_of_arrival = input("Time of arrival (YYYY-MM-DD): ")
 
@@ -30,6 +32,7 @@ def cities_with_boeing_in_dates():
         descriptions = [x[0] for x in cursor.description]
         result = cursor.fetchall()
         formatted_print(descriptions, result)
+        return descriptions, result
 
     except Exception as e:
         print("Query failed")

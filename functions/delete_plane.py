@@ -10,11 +10,10 @@ def delete_plane():
         cursor.execute(
             """
             SELECT * FROM Plane
-            WHERE
-            plane_id LIKE ? OR
-            name LIKE ? OR
-            plane_make LIKE ? OR
-            date_of_creation LIKE ?
+            WHERE plane_id LIKE ?
+            OR name LIKE ?
+            OR plane_make LIKE ?
+            OR date_of_creation LIKE ?
             """, (search, search, search, search)
         )
         descriptions = [x[0] for x in cursor.description]
@@ -28,11 +27,10 @@ def delete_plane():
     plane_ids = cursor.execute(
         """
         SELECT plane_id FROM Plane
-        WHERE
-        plane_id LIKE ? OR
-        name LIKE ? OR
-        plane_make LIKE ? OR
-        date_of_creation LIKE ?
+        WHERE plane_id LIKE ?
+        OR name LIKE ?
+        OR plane_make LIKE ?
+        OR date_of_creation LIKE ?
         """, (search, search, search, search)
     )
 

@@ -23,3 +23,11 @@ prompt = dedent(
     Choice: 
     """.rstrip() + " "
 )
+
+goodbye = dedent(
+    """
+    ***********
+    * Goodbye *
+    ***********
+    """
+)
