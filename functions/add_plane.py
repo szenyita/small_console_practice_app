@@ -10,7 +10,7 @@ def add_plane():
 
     plane_id = ""
 
-    while len(plane_id) != 4 or plane_id in plane_ids:
+    while len(plane_id) > 4 or len(plane_id) == 0 or plane_id in plane_ids:
         plane_id = input("Id (4 characters and unique): ")
         if len(plane_id) != 4:
             print("Id is not 4 characters long")

@@ -1,4 +1,4 @@
-from utils.max_res_element_len import max_res_element_len
+from utils.get_res_lens import get_res_lens
 
 
 def formatted_print(descriptions, result):
@@ -6,23 +6,25 @@ def formatted_print(descriptions, result):
         print("No such record")
         return False
 
-    descriptions_length = max(len(str(element)) for element in descriptions)
-    result_length = max_res_element_len(result)
+    desc_lens = [len(str(element)) for element in descriptions]
+    res_lens_ = get_res_lens(result)
 
-    length = max(descriptions_length, result_length)
-    horizontal_border = "+" + "-" * (length * len(descriptions) + len(descriptions) * 2 + len(descriptions) - 1) + "+"
+    lens = [max(desc_lens[i], res_lens_[i]) for i in range(len(desc_lens))]
+    length = (sum(lens))
+
+    horizontal_border = "+" + "-" * (length + 3 * len(descriptions) - 1) + "+"
 
     print(horizontal_border)
 
-    for description in descriptions:
-        print(f"| {description:{length}} ", end="")
+    for i, description in enumerate(descriptions):
+        print(f"| {description:{lens[i]}} ", end="")
     print("| ")
 
     print(horizontal_border)
 
     for row in result:
-        for field in row:
-            print(f"| {field:{length}} ", end="")
+        for i, field in enumerate(row):
+            print(f"| {field:{lens[i]}} ", end="")
         print("| ")
 
     print(horizontal_border)
