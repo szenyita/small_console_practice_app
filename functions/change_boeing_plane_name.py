@@ -17,6 +17,7 @@ def change_plane_name():
     if choice == "Y":
         try:
             cursor.execute("UPDATE Plane SET plane_make = 'Boeing' WHERE plane_make = 'Boieng'")
+            print("Plane names changed successfully")
         except Exception as e:
             print("Query failed")
             print(f"Exception {e}")

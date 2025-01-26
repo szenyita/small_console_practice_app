@@ -41,6 +41,7 @@ def delete_plane():
 
     try:
         cursor.execute("DELETE FROM Plane WHERE plane_id = ?", (plane_id,))
+        print("Plane deleted successfully")
     except Exception as e:
         print("Query failed")
         print(f"Exception {e}")

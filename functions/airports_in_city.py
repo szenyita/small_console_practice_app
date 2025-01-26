@@ -7,6 +7,7 @@ def airports_in_city():
 
     try:
         result = cursor.execute("SELECT * FROM Airport WHERE location = ?", (location,))
+        print([x[0] for x in cursor.description])
         for row in result:
             print(row)
     except Exception as e:

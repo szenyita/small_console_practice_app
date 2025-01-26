@@ -1,5 +1,5 @@
 from db.config import cursor, connection
-from re import search
+from utils.is_date import is_date
 
 def add_plane():
     cursor.execute("SELECT plane_id FROM Plane")
@@ -18,17 +18,13 @@ def add_plane():
     name = input("Name: ")
     plane_make = input("Make: ")
 
-    pattern = "\d{4}-\d{2}-\d{2}"
-    date_of_creation = ""
-    while len(date_of_creation) != 10 or not search(pattern, date_of_creation):
-        date_of_creation = input("Date of creation (YYYY-MM-DD): ")
-        if len(date_of_creation) != 10:
-            print("Date of creation is not 10 characters long")
-        if not search(pattern, date_of_creation):
-            print("Date of creation format is not (YYYY-MM-DD)")
+    date_of_creation = input("Date of creation (YYYY-MM-DD): ")
+    while not is_date(date_of_creation):
+        date_of_creation = input("Format is not in YYYY-MM-DD. Enter again: ")
 
     try:
         cursor.execute("INSERT INTO Plane VALUES (?, ?, ?, ?)", (plane_id, name, plane_make, date_of_creation))
+        print("Plane added successfully")
     except Exception as e:
         print("Query failed")
         print(f"Exception {e}")
