@@ -14,8 +14,8 @@ def airports_in_city():
         cursor.execute("SELECT * FROM Airport WHERE location = ?", (location,))
         descriptions = [x[0] for x in cursor.description]
         result = cursor.fetchall()
-        formatted_print(descriptions, result)
-        return descriptions, result
+        has_records = formatted_print(descriptions, result)
+        return descriptions, result, has_records
 
     except Exception as e:
         print("Query failed")

@@ -26,3 +26,5 @@ def formatted_print(descriptions, result):
         print("| ")
 
     print(horizontal_border)
+
+    return True

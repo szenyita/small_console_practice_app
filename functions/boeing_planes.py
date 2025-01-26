@@ -9,8 +9,8 @@ def boeing_planes():
         cursor.execute("SELECT * FROM Plane WHERE plane_make = 'Boeing'")
         descriptions = [x[0] for x in cursor.description]
         result = cursor.fetchall()
-        formatted_print(descriptions, result)
-        return descriptions, result
+        has_records = formatted_print(descriptions, result)
+        return descriptions, result, has_records
 
     except Exception as e:
         print("Query failed")

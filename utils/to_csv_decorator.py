@@ -3,7 +3,10 @@ import csv
 
 def to_csv_decorator(original_function):
     def wrapper():
-        descriptions, result = original_function()
+        descriptions, result, has_records = original_function()
+
+        if not has_records:
+            return
 
         choice = ""
 

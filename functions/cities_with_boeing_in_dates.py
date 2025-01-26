@@ -31,8 +31,8 @@ def cities_with_boeing_in_dates():
 
         descriptions = [x[0] for x in cursor.description]
         result = cursor.fetchall()
-        formatted_print(descriptions, result)
-        return descriptions, result
+        has_records = formatted_print(descriptions, result)
+        return descriptions, result, has_records
 
     except Exception as e:
         print("Query failed")
