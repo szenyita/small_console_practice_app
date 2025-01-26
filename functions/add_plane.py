@@ -29,7 +29,6 @@ def add_plane():
 
     try:
         cursor.execute("INSERT INTO Plane VALUES (?, ?, ?, ?)", (plane_id, name, plane_make, date_of_creation))
-        connection.commit()
     except Exception as e:
         print("Query failed")
         print(f"Exception {e}")

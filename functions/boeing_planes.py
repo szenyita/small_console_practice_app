@@ -1,8 +1,10 @@
 from db.config import cursor
 
 def boeing_planes():
-    query = "SELECT * FROM Plane"
-    result = cursor.execute(query)
-
-    for row in result:
-        print(row)
+    try:
+        result = cursor.execute("SELECT * FROM Plane WHERE plane_make = 'Boeing'")
+        for row in result:
+            print(row)
+    except Exception as e:
+        print("Query failed")
+        print(f"Exception {e}")
