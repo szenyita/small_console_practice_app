@@ -1,4 +1,4 @@
-from db.config import cursor, connection
+from db.config import cursor
 from utils.is_date import is_date
 
 
