@@ -32,6 +32,7 @@ def cities_with_boeing_in_dates():
         descriptions = get_descriptions(cursor.description)
         result = cursor.fetchall()
         has_records = formatted_print(descriptions, result)
+
         return descriptions, result, has_records
 
     except Exception as e:

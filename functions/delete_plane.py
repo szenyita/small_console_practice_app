@@ -26,16 +26,6 @@ def delete_plane():
         print("Query failed")
         print(f"Exception {e}")
 
-    cursor.execute(
-        """
-        SELECT plane_id FROM Plane
-        WHERE plane_id LIKE ?
-        OR name LIKE ?
-        OR plane_make LIKE ?
-        OR date_of_creation LIKE ?
-        """, (search, search, search, search)
-    )
-
     plane_id = input("Enter the Id of the plane you would like to delete: ")
     plane_ids = {row[0] for row in result}
 

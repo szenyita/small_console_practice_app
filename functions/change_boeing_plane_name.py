@@ -8,6 +8,7 @@ def change_plane_name():
         cursor.execute("SELECT * FROM Plane WHERE plane_make = 'Boieng'")
         descriptions = get_descriptions(cursor.description)
         result = cursor.fetchall()
+
         if not formatted_print(descriptions, result):
             return
 
@@ -18,7 +19,7 @@ def change_plane_name():
     choice = ""
 
     while choice not in {"Y", "N"}:
-        choice = input("Would you like to change these names to \"Boeing\"? (Y/N):").upper()
+        choice = input("Would you like to change these names to \"Boeing\"? (Y/N): ").upper()
 
     if choice == "Y":
         try:

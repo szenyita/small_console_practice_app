@@ -16,6 +16,7 @@ def airports_in_city():
         descriptions = get_descriptions(cursor.description)
         result = cursor.fetchall()
         has_records = formatted_print(descriptions, result)
+
         return descriptions, result, has_records
 
     except Exception as e:
