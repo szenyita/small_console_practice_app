@@ -18,14 +18,18 @@ def cities_with_boeing_in_dates():
         time_of_departure = input("Format is not in YYYY-MM-DD. Enter again: ")
 
     try:
+        # Applying the filters in the query is more efficient than doing so in the Python code.
+        # If we were to select all the data from our database and then looped through the returned values
+        # either with a loop or by a built-in function like filter() (which uses looping under the hood)
+        # we would add an algorithm which costs O(n) time for no reason.
+        
         cursor.execute(
             """
-            SELECT a.name FROM Airport a
+            SELECT DISTINCT a.name FROM Airport a
             JOIN Schedule s ON a.airport_id = s.aiport_id
             JOIN Boeing b ON s.plane_id = b.plane_id
             WHERE time_of_arrival <= ?
             AND time_of_departure >= ?
-            GROUP BY a.name
             """, (time_of_departure, time_of_arrival)
         )
 
