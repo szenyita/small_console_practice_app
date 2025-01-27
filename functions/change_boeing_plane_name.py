@@ -1,11 +1,12 @@
 from db.config import cursor
 from utils.formatted_print import formatted_print
+from utils.get_descriptions import get_descriptions
 
 
 def change_plane_name():
     try:
         cursor.execute("SELECT * FROM Plane WHERE plane_make = 'Boieng'")
-        descriptions = [x[0] for x in cursor.description]
+        descriptions = get_descriptions(cursor.description)
         result = cursor.fetchall()
         if not formatted_print(descriptions, result):
             return

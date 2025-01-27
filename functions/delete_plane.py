@@ -1,10 +1,12 @@
 from db.config import cursor
 from utils.formatted_print import formatted_print
+from utils.get_descriptions import get_descriptions
 
 
 def delete_plane():
     search = input("Enter the filter you would like to apply or skip with Enter: ")
     search = f"%{search}%"
+    result = []
 
     try:
         cursor.execute(
@@ -16,7 +18,7 @@ def delete_plane():
             OR date_of_creation LIKE ?
             """, (search, search, search, search)
         )
-        descriptions = [x[0] for x in cursor.description]
+        descriptions = get_descriptions(cursor.description)
         result = cursor.fetchall()
         formatted_print(descriptions, result)
 
@@ -24,7 +26,7 @@ def delete_plane():
         print("Query failed")
         print(f"Exception {e}")
 
-    plane_ids = cursor.execute(
+    cursor.execute(
         """
         SELECT plane_id FROM Plane
         WHERE plane_id LIKE ?
@@ -35,7 +37,7 @@ def delete_plane():
     )
 
     plane_id = input("Enter the Id of the plane you would like to delete: ")
-    plane_ids = {x[0] for x in plane_ids}
+    plane_ids = {row[0] for row in result}
 
     while plane_id not in plane_ids:
         plane_id = input("Id not found in filtered list of ids. Enter the correct Id: ")

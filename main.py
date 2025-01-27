@@ -1,5 +1,6 @@
 from db.config import connection
 from utils.messages import welcome, prompt, goodbye
+from db.views import create_views
 from functions.add_plane import add_plane
 from functions.airports_in_city import airports_in_city
 from functions.boeing_planes import boeing_planes
@@ -8,6 +9,8 @@ from functions.cities_with_boeing_in_dates import cities_with_boeing_in_dates
 from functions.delete_plane import delete_plane
 
 print(welcome)
+
+create_views()
 
 while True:
     choice = input(prompt)

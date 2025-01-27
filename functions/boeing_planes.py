@@ -1,13 +1,14 @@
 from db.config import cursor
 from utils.formatted_print import formatted_print
+from utils.get_descriptions import get_descriptions
 from utils.to_csv_decorator import to_csv_decorator
 
 
 @to_csv_decorator
 def boeing_planes():
     try:
-        cursor.execute("SELECT * FROM Plane WHERE plane_make = 'Boeing'")
-        descriptions = [x[0] for x in cursor.description]
+        cursor.execute("SELECT * FROM Boeing")
+        descriptions = get_descriptions(cursor.description)
         result = cursor.fetchall()
         has_records = formatted_print(descriptions, result)
         return descriptions, result, has_records

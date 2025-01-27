@@ -1,6 +1,7 @@
 from db.config import cursor
 from utils.formatted_print import formatted_print
 from utils.is_date import is_date
+from utils.get_descriptions import get_descriptions
 from utils.to_csv_decorator import to_csv_decorator
 
 
@@ -21,15 +22,14 @@ def cities_with_boeing_in_dates():
             """
             SELECT a.name FROM Airport a
             JOIN Schedule s ON a.airport_id = s.aiport_id
-            JOIN Plane p ON s.plane_id = p.plane_id
-            WHERE plane_make = 'Boeing'
-            AND time_of_arrival <= ?
+            JOIN Boeing b ON s.plane_id = b.plane_id
+            WHERE time_of_arrival <= ?
             AND time_of_departure >= ?
             GROUP BY a.name
             """, (time_of_departure, time_of_arrival)
         )
 
-        descriptions = [x[0] for x in cursor.description]
+        descriptions = get_descriptions(cursor.description)
         result = cursor.fetchall()
         has_records = formatted_print(descriptions, result)
         return descriptions, result, has_records

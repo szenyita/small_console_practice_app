@@ -6,7 +6,7 @@ def formatted_print(descriptions, result):
         print("No such record")
         return False
 
-    desc_lens = [len(str(element)) for element in descriptions]
+    desc_lens = [len(str(description)) for description in descriptions]
     res_lens_ = get_res_lens(result)
 
     lens = [max(desc_lens[i], res_lens_[i]) for i in range(len(desc_lens))]
