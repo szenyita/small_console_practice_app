@@ -5,13 +5,14 @@ from Classes.App import App
 import sqlite3
 from textwrap import dedent
 from re import search
+from time import time
 import csv
 
 def main():
     db_path = "db/airplanes.db3"
 
     db_manager = DatabaseManager(db_path, sqlite3)
-    utility = Utility(dedent, search, csv)
+    utility = Utility(dedent, search, csv, time)
     query_manager = QueryManager(db_manager, utility)
     app = App(db_manager, query_manager, utility)
 

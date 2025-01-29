@@ -1,8 +1,9 @@
 class Utility:
 
-    def __init__(self, dedent, search, csv):
+    def __init__(self, dedent, search, csv, time):
         self.dedent = dedent
         self.search = search
+        self.time = time
         self.csv = csv
 
     @property
@@ -136,13 +137,16 @@ class Utility:
                 choice = input("Would you like to export the data to a csv file? (Y/N):").upper()
 
             if choice == "Y":
+                timestamp = str(int(self.time()))
+                filename = f"output/{timestamp}-{original_function.__name__}.csv"
+
                 try:
-                    with open("output.csv", "w", newline="", encoding="utf-8") as file:
+                    with open(filename, "w", newline="", encoding="utf-8") as file:
                         writer = self.csv.writer(file)
                         writer.writerow(descriptions)
                         for row in result:
                             writer.writerow(row)
-                        print("File output.csv written successfully")
+                        print(f"File {filename} written successfully")
 
                 except Exception as e:
                     print("File writing failed")
