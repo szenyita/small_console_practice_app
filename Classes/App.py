@@ -1,11 +1,6 @@
-from DatabaseManager import DatabaseManager
-from Utility import Utility
-from QueryManager import QueryManager
-
-
 class App:
 
-    def __init__(self, db_manager: DatabaseManager, query_manager: QueryManager, utility: Utility):
+    def __init__(self, db_manager, query_manager, utility):
         self.db_manager = db_manager
         self.query_manager = query_manager
         self.utility = utility

@@ -1,8 +1,48 @@
-import csv
-from textwrap import dedent
-from re import search
-
 class Utility:
+
+    def __init__(self, dedent, search, csv):
+        self.dedent = dedent
+        self.search = search
+        self.csv = csv
+
+    @property
+    def welcome(self):
+        return self.dedent(
+            """
+            *****************************
+            * Airport Management System *
+            *****************************
+            """
+        )
+
+    @property
+    def prompt(self):
+        return self.dedent(
+            """
+            Choose one of the following options by pressing its number:
+            1. List all Boeing planes
+            2. Add a new plane
+            3. Change incorrect \"Boieng\" plane name
+            4. List airports in a selected city
+            5. Delete a plane
+            6. List cities with Boeing planes between specified dates
+            7. Quit the program
+        
+            Choice: 
+            """.rstrip() + " "
+        )
+
+    @property
+    def goodbye(self):
+        return self.dedent(
+            """
+            ***********
+            * Goodbye *
+            ***********
+            """
+        )
+
+    pattern = "\d{4}-\d{2}-\d{2}"
 
     @staticmethod
     def get_res_lens(result):
@@ -46,10 +86,8 @@ class Utility:
     def get_descriptions(cursor_description):
         return [description[0] for description in cursor_description]
 
-    pattern = "\d{4}-\d{2}-\d{2}"
-
     def is_date(self, date_of_creation):
-        if len(date_of_creation) == 10 and search(self.pattern, date_of_creation):
+        if len(date_of_creation) == 10 and self.search(self.pattern, date_of_creation):
             is_leap_year = False
             year = int(date_of_creation.split("-")[0])
             month = int(date_of_creation.split("-")[1])
@@ -85,42 +123,9 @@ class Utility:
 
         return length
 
-
-    welcome = dedent(
-        """
-        *****************************
-        * Airport Management System *
-        *****************************
-        """
-    )
-
-    prompt = dedent(
-        """
-        Choose one of the following options by pressing its number:
-        1. List all Boeing planes
-        2. Add a new plane
-        3. Change incorrect \"Boieng\" plane name
-        4. List airports in a selected city
-        5. Delete a plane
-        6. List cities with Boeing planes between specified dates
-        7. Quit the program
-
-        Choice: 
-        """.rstrip() + " "
-    )
-
-    goodbye = dedent(
-        """
-        ***********
-        * Goodbye *
-        ***********
-        """
-    )
-
-    @staticmethod
-    def to_csv_decorator(original_function):
-        def wrapper(*args, **kwargs):
-            descriptions, result, has_records = original_function(*args, **kwargs)
+    def to_csv_decorator(self, original_function):
+        def wrapper():
+            descriptions, result, has_records = original_function()
 
             if not has_records:
                 return
@@ -133,7 +138,7 @@ class Utility:
             if choice == "Y":
                 try:
                     with open("output.csv", "w", newline="", encoding="utf-8") as file:
-                        writer = csv.writer(file)
+                        writer = self.csv.writer(file)
                         writer.writerow(descriptions)
                         for row in result:
                             writer.writerow(row)
